@@ -25,6 +25,8 @@ venv/
 env/
 ENV/
 .venv
+*-venv/
+*venv/
 
 # IDE
 .vscode/
@@ -51,3 +53,9 @@ sample_*.sql
 
 # Review files
 *REVIEW*
+*PLAN*.md
+QUICK_START*.md
+*LIST*.md
+*TEST*.md
+*TESTING*.md
+*TESTING*.md
