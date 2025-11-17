@@ -1,0 +1,28 @@
+{
+  "host": "localhost",
+  "port": 5432,
+  "username": "myuser",
+  "dbname": "mydatabase",
+  "ssl_mode": "prefer",
+  "file": "output.sql.gz",
+  "compress": true,
+  "limit": [
+    "users=1000",
+    "orders=500",
+    "*=100"
+  ],
+  "exclude_column": [
+    "users.password",
+    "*.secret_key"
+  ],
+  "exclude_schema": [
+    "audit",
+    "logs"
+  ],
+  "ordered": true,
+  "ordered_desc": true,
+  "verbose": true,
+  "verify": true,
+  "log_level": "INFO"
+}
+

@@ -1,0 +1,36 @@
+# Example configuration file for pg-sample
+# Usage: pg-sample --config example_config.yaml
+
+# Database connection
+host: localhost
+port: 5432
+username: myuser
+dbname: mydatabase
+ssl_mode: prefer
+
+# Output settings
+file: output.sql.gz
+compress: true
+
+# Sampling limits
+limit:
+  - "users=1000"
+  - "orders=500"
+  - "*=100"
+
+# Exclusions
+exclude_column:
+  - "users.password"
+  - "*.secret_key"
+
+exclude_schema:
+  - "audit"
+  - "logs"
+
+# Options
+ordered: true
+ordered_desc: true
+verbose: true
+verify: true
+log_level: INFO
+
