@@ -81,7 +81,7 @@ def parse_log_level(level_str: str) -> LogLevel:
 @click.option("--target-version", help="Target PostgreSQL version for generated SQL")
 @click.option("--verbose", "-v", is_flag=True, help="Output status messages to stderr")
 @click.option("--trace", is_flag=True, help="Enable database client tracing/debugging")
-@click.version_option(version=None, package_name="dbsample", help="Show version and exit")
+@click.option("--version", is_flag=True, help="Show version and exit")
 def main(
     config: Optional[str],
     host: Optional[str],
@@ -121,8 +121,18 @@ def main(
     target_version: Optional[str],
     verbose: bool,
     trace: bool,
+    version: bool,
 ):
     """Database Sampling Utility - Export representative sample datasets."""
+    
+    # Handle --version flag
+    if version:
+        try:
+            from dbsample import __version__
+            print(f"dbsample version {__version__}")
+        except ImportError:
+            print("dbsample version unknown")
+        sys.exit(EXIT_SUCCESS)
     
     # Load configuration file if specified (before setting up logger)
     config_values = {}
