@@ -49,3 +49,5 @@ Thumbs.db
 *.sql
 sample_*.sql
 
+# Review files
+*REVIEW*
