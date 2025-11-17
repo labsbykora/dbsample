@@ -1,13 +1,13 @@
 #!/bin/bash
-# Test script for pg-sample utility
+# Test script for dbsample utility
 # Usage: ./run_tests.sh [database_name] [username]
 
-DB_NAME=${1:-pg_sample_test}
+DB_NAME=${1:-dbsample_test}
 DB_USER=${2:-postgres}
 HOST=${3:-localhost}
 
 echo "========================================="
-echo "Testing pg-sample utility"
+echo "Testing dbsample utility"
 echo "Database: $DB_NAME"
 echo "User: $DB_USER"
 echo "Host: $HOST"
@@ -52,48 +52,48 @@ test_command() {
 
 # Test 1: Basic connection and help
 echo "=== Test 1: Help command ==="
-test_command "Help command" "pg-sample --help" ""
+test_command "Help command" "dbsample --help" ""
 
 # Test 2: Basic sampling
 echo "=== Test 2: Basic sampling (10 rows per table) ==="
 test_command "Basic sampling" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --limit '*=10' --file test_basic.sql --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --limit '*=10' --file test_basic.sql --verbose" \
     "test_basic.sql"
 
 # Test 3: Custom limits
 echo "=== Test 3: Custom row limits ==="
 test_command "Custom limits" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --limit 'users=3,orders=2,*=1' --file test_custom.sql --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --limit 'users=3,orders=2,*=1' --file test_custom.sql --verbose" \
     "test_custom.sql"
 
 # Test 4: Column exclusion
 echo "=== Test 4: Column exclusion ==="
 test_command "Column exclusion" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --exclude-column 'users.password,*.secret_key' --limit '*=5' --file test_excluded.sql --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --exclude-column 'users.password,*.secret_key' --limit '*=5' --file test_excluded.sql --verbose" \
     "test_excluded.sql"
 
 # Test 5: Schema filtering
 echo "=== Test 5: Schema filtering ==="
 test_command "Schema filtering" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --schema public --exclude-schema archive --limit '*=5' --file test_filtered.sql --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --schema public --exclude-schema archive --limit '*=5' --file test_filtered.sql --verbose" \
     "test_filtered.sql"
 
 # Test 6: Deterministic ordering
 echo "=== Test 6: Deterministic ordering ==="
 test_command "Deterministic ordering" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --ordered --ordered-desc --limit '*=5' --file test_ordered.sql --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --ordered --ordered-desc --limit '*=5' --file test_ordered.sql --verbose" \
     "test_ordered.sql"
 
 # Test 7: Data-only export
 echo "=== Test 7: Data-only export ==="
 test_command "Data-only export" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --data-only --limit '*=5' --file test_data_only.sql --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --data-only --limit '*=5' --file test_data_only.sql --verbose" \
     "test_data_only.sql"
 
 # Test 8: Audit trail
 echo "=== Test 8: Audit trail ==="
 test_command "Audit trail" \
-    "pg-sample --host $HOST --username $DB_USER --dbname $DB_NAME --limit '*=5' --file test_audit.sql --audit-file test_audit.json --verbose" \
+    "dbsample --host $HOST --username $DB_USER --dbname $DB_NAME --limit '*=5' --file test_audit.sql --audit-file test_audit.json --verbose" \
     "test_audit.json"
 
 # Test 9: Verify SQL syntax (basic check)

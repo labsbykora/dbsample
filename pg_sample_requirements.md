@@ -39,7 +39,7 @@ This requirements document focuses on V1.0 (MVP) for internal use. Features are 
 - **REQ-006**: The utility SHALL produce output compatible with standard PostgreSQL import tools
 
 #### 2.1.2 Schema Handling
-- **REQ-007**: The utility SHALL support creating a temporary sample schema (default: `_pg_sample`)
+- **REQ-007**: The utility SHALL support creating a temporary sample schema (default: `_dbsample`)
 - **REQ-008**: The utility SHALL optionally drop existing sample schema via `--force` flag
 - **REQ-009**: The utility SHALL optionally preserve sample schema via `--keep` flag
 - **REQ-010**: The utility SHALL support filtering by specific schema via `--schema` option
@@ -325,7 +325,7 @@ This requirements document focuses on V1.0 (MVP) for internal use. Features are 
 | Option | Default | Description |
 |--------|---------|-------------|
 | `--schema` | all | Specific schema to export |
-| `--sample-schema` | `_pg_sample` | Temporary schema name |
+| `--sample-schema` | `_dbsample` | Temporary schema name |
 | `--force` | off | Drop existing sample schema |
 | `--keep` | off | Preserve sample schema |
 

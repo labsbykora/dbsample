@@ -5,9 +5,9 @@ from typing import List, Dict, Set, Optional, Tuple, Any
 from dataclasses import dataclass
 from enum import Enum
 import psycopg
-from pg_sample.schema import Table, ForeignKey
-from pg_sample.dependencies import DependencyResolver
-from pg_sample.logger import Logger
+from dbsample.schema import Table, ForeignKey
+from dbsample.dependencies import DependencyResolver
+from dbsample.logger import Logger
 
 
 class LimitType(Enum):

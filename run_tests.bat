@@ -1,11 +1,11 @@
 @echo off
-REM Test script for pg-sample utility (Windows)
+REM Test script for dbsample utility (Windows)
 REM Usage: run_tests.bat [database_name] [username] [host]
 
 setlocal enabledelayedexpansion
 
 set DB_NAME=%1
-if "%DB_NAME%"=="" set DB_NAME=pg_sample_test
+if "%DB_NAME%"=="" set DB_NAME=dbsample_test
 
 set DB_USER=%2
 if "%DB_USER%"=="" set DB_USER=postgres
@@ -14,7 +14,7 @@ set HOST=%3
 if "%HOST%"=="" set HOST=localhost
 
 echo =========================================
-echo Testing pg-sample utility
+echo Testing dbsample utility
 echo Database: %DB_NAME%
 echo User: %DB_USER%
 echo Host: %HOST%
@@ -26,7 +26,7 @@ set TESTS_FAILED=0
 
 REM Test 1: Help command
 echo === Test 1: Help command ===
-pg-sample --help >nul 2>&1
+dbsample --help >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     echo [PASS] Help command
     set /a TESTS_PASSED+=1
@@ -38,7 +38,7 @@ echo.
 
 REM Test 2: Basic sampling
 echo === Test 2: Basic sampling (10 rows per table) ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --limit "*=10" --file test_basic.sql --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --limit "*=10" --file test_basic.sql --verbose
 if exist test_basic.sql (
     echo [PASS] Basic sampling
     set /a TESTS_PASSED+=1
@@ -50,7 +50,7 @@ echo.
 
 REM Test 3: Custom limits
 echo === Test 3: Custom row limits ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --limit "users=3,orders=2,*=1" --file test_custom.sql --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --limit "users=3,orders=2,*=1" --file test_custom.sql --verbose
 if exist test_custom.sql (
     echo [PASS] Custom limits
     set /a TESTS_PASSED+=1
@@ -62,7 +62,7 @@ echo.
 
 REM Test 4: Column exclusion
 echo === Test 4: Column exclusion ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --exclude-column "users.password,*.secret_key" --limit "*=5" --file test_excluded.sql --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --exclude-column "users.password,*.secret_key" --limit "*=5" --file test_excluded.sql --verbose
 if exist test_excluded.sql (
     echo [PASS] Column exclusion
     set /a TESTS_PASSED+=1
@@ -74,7 +74,7 @@ echo.
 
 REM Test 5: Schema filtering
 echo === Test 5: Schema filtering ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --schema public --exclude-schema archive --limit "*=5" --file test_filtered.sql --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --schema public --exclude-schema archive --limit "*=5" --file test_filtered.sql --verbose
 if exist test_filtered.sql (
     echo [PASS] Schema filtering
     set /a TESTS_PASSED+=1
@@ -86,7 +86,7 @@ echo.
 
 REM Test 6: Deterministic ordering
 echo === Test 6: Deterministic ordering ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --ordered --ordered-desc --limit "*=5" --file test_ordered.sql --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --ordered --ordered-desc --limit "*=5" --file test_ordered.sql --verbose
 if exist test_ordered.sql (
     echo [PASS] Deterministic ordering
     set /a TESTS_PASSED+=1
@@ -98,7 +98,7 @@ echo.
 
 REM Test 7: Data-only export
 echo === Test 7: Data-only export ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --data-only --limit "*=5" --file test_data_only.sql --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --data-only --limit "*=5" --file test_data_only.sql --verbose
 if exist test_data_only.sql (
     echo [PASS] Data-only export
     set /a TESTS_PASSED+=1
@@ -110,7 +110,7 @@ echo.
 
 REM Test 8: Audit trail
 echo === Test 8: Audit trail ===
-pg-sample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --limit "*=5" --file test_audit.sql --audit-file test_audit.json --verbose
+dbsample --host %HOST% --username %DB_USER% --dbname %DB_NAME% --limit "*=5" --file test_audit.sql --audit-file test_audit.json --verbose
 if exist test_audit.json (
     echo [PASS] Audit trail
     set /a TESTS_PASSED+=1

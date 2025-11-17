@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the PostgreSQL Database Sampling Utility will be documented in this file.
+All notable changes to the Database Sampling Utility will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -60,6 +60,89 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned
 - Streaming for very large tables (deferred to future version)
+
+## [2.0.0] - 2025-11-17
+
+### ⚠️ BREAKING CHANGES
+
+This is a **major version release** with breaking changes due to project renaming.
+
+#### Package and Command Rename
+- **Package name changed**: `pg-sample` → `dbsample`
+- **Command name changed**: `pg-sample` → `dbsample`
+- **Package directory renamed**: `pg_sample/` → `dbsample/`
+- **Default staging schema changed**: `_pg_sample` → `_dbsample`
+
+#### Migration Guide
+
+**Before (v1.x):**
+```bash
+pip install pg-sample
+pg-sample --host localhost --dbname mydb --limit "*=100"
+```
+
+**After (v2.0.0):**
+```bash
+pip install dbsample
+dbsample --host localhost --dbname mydb --limit "*=100"
+```
+
+**Breaking Changes:**
+1. **Installation**: Must uninstall old package and install new one:
+   ```bash
+   pip uninstall pg-sample
+   pip install dbsample
+   ```
+
+2. **Command Usage**: All scripts and documentation using `pg-sample` must be updated to `dbsample`
+
+3. **Staging Schema**: If you have existing staging schemas named `_pg_sample`, they will not be automatically cleaned up. Use `--sample-schema _pg_sample` to explicitly reference old schemas, or manually drop them.
+
+4. **Python Imports**: If you import the package in Python code:
+   ```python
+   # Old (v1.x)
+   from pg_sample.cli import main
+   
+   # New (v2.0.0)
+   from dbsample.cli import main
+   ```
+
+5. **Configuration Files**: No changes needed - configuration file format remains the same.
+
+### Changed
+- **Project Name**: Renamed from "PostgreSQL Database Sampling Utility" to "Database Sampling Utility" to reflect future multi-database support
+- **Default Staging Schema**: Changed from `_pg_sample` to `_dbsample` for consistency with new naming
+- **Package Structure**: All internal imports updated from `pg_sample.*` to `dbsample.*`
+- **Documentation**: All documentation updated to reflect new naming
+
+### Why v2.0.0?
+
+This is a major version bump because:
+- Package name change requires uninstalling old package
+- Command name change breaks all existing scripts and workflows
+- Default staging schema change may affect existing staging schemas
+- Python import paths changed (breaks any code importing the package)
+
+### Upgrade Path
+
+1. **Uninstall old version:**
+   ```bash
+   pip uninstall pg-sample
+   ```
+
+2. **Install new version:**
+   ```bash
+   pip install dbsample
+   ```
+
+3. **Update scripts:**
+   - Replace all `pg-sample` commands with `dbsample`
+   - Update any Python code importing `pg_sample` to `dbsample`
+
+4. **Clean up old staging schemas (optional):**
+   ```sql
+   DROP SCHEMA IF EXISTS _pg_sample CASCADE;
+   ```
 
 ## [1.2.0] - 2025-11-17
 

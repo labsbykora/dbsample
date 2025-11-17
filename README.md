@@ -1,6 +1,6 @@
-# PostgreSQL Database Sampling Utility
+# Database Sampling Utility
 
-A command-line utility that exports a representative sample dataset from a PostgreSQL database while maintaining referential integrity and supporting complex schema relationships.
+A command-line utility that exports a representative sample dataset from databases (currently PostgreSQL) while maintaining referential integrity and supporting complex schema relationships.
 
 ## Features
 
@@ -23,40 +23,42 @@ A command-line utility that exports a representative sample dataset from a Postg
 pip install -e .
 ```
 
+**Note**: If upgrading from v1.x (`pg-sample`), see [MIGRATION_GUIDE_v2.0.0.md](MIGRATION_GUIDE_v2.0.0.md) for breaking changes.
+
 ## Usage
 
 ```bash
 # Basic usage - sample 100 rows per table
-pg-sample --host localhost --username myuser --dbname mydb
+dbsample --host localhost --username myuser --dbname mydb
 
 # Custom limits with patterns
-pg-sample --host localhost --username myuser --dbname mydb \
+dbsample --host localhost --username myuser --dbname mydb \
   --limit "users=1000,orders=500,*=100"
 
 # Exclude sensitive columns
-pg-sample --host localhost --username myuser --dbname mydb \
+dbsample --host localhost --username myuser --dbname mydb \
   --exclude-column "users.password,*.ssn"
 
 # Exclude entire schemas
-pg-sample --host localhost --username myuser --dbname mydb \
+dbsample --host localhost --username myuser --dbname mydb \
   --exclude-schema audit --exclude-schema logs
 
 # Exclude specific tables (supports patterns)
-pg-sample --host localhost --username myuser --dbname mydb \
+dbsample --host localhost --username myuser --dbname mydb \
   --exclude-table "temp_*" --exclude-table "audit.*"
 
 # Output to file
-pg-sample --host localhost --username myuser --dbname mydb \
+dbsample --host localhost --username myuser --dbname mydb \
   --file sample.sql
 
 # Dry run to see what would be sampled
-pg-sample --host localhost --username myuser --dbname mydb --dry-run
+dbsample --host localhost --username myuser --dbname mydb --dry-run
 
 # Use configuration file
-pg-sample --config config.json
+dbsample --config config.json
 
 # Compress output
-pg-sample --host localhost --username myuser --dbname mydb --file output.sql.gz --compress
+dbsample --host localhost --username myuser --dbname mydb --file output.sql.gz --compress
 ```
 
 ## Requirements
@@ -67,5 +69,5 @@ pg-sample --host localhost --username myuser --dbname mydb --file output.sql.gz 
 
 ## Documentation
 
-See `pg_sample_requirements.md` for complete requirements and specifications.
+See `pg_sample_requirements.md` for complete requirements and specifications (note: filename retained for historical reference).
 

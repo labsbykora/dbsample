@@ -1,5 +1,5 @@
-# Example configuration file for pg-sample
-# Usage: pg-sample --config example_config.yaml
+# Example configuration file for dbsample
+# Usage: dbsample --config example_config.yaml
 
 # Database connection
 host: localhost

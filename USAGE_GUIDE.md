@@ -1,4 +1,4 @@
-# Usage Guide - Running pg-sample Against Real Databases
+# Usage Guide - Running dbsample Against Real Databases
 
 ## Prerequisites
 
@@ -44,14 +44,14 @@ export PGDATABASE=your_database
 
 Then run:
 ```bash
-pg-sample --limit "*=100" --file sample.sql
+dbsample --limit "*=100" --file sample.sql
 ```
 
 ### 2. Explicit Connection Parameters
 
 **Basic connection:**
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --port 5432 \
   --username your_username \
@@ -62,7 +62,7 @@ pg-sample \
 
 **With password prompt:**
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_username \
   --dbname your_database \
@@ -74,7 +74,7 @@ pg-sample \
 ### 3. Connection URI (Recommended for Complex Setups)
 
 ```bash
-pg-sample \
+dbsample \
   --connection-uri "postgresql://username:password@host:port/database" \
   --limit "*=100" \
   --file sample.sql
@@ -82,7 +82,7 @@ pg-sample \
 
 Or with SSL:
 ```bash
-pg-sample \
+dbsample \
   --connection-uri "postgresql://username:password@host:port/database?sslmode=require" \
   --limit "*=100" \
   --file sample.sql
@@ -109,7 +109,7 @@ chmod 600 ~/.pgpass
 
 Then run without password:
 ```bash
-pg-sample --host production-db.example.com --username myuser --dbname mydb --limit "*=100" --file sample.sql
+dbsample --host production-db.example.com --username myuser --dbname mydb --limit "*=100" --file sample.sql
 ```
 
 ## Common Use Cases
@@ -119,7 +119,7 @@ pg-sample --host production-db.example.com --username myuser --dbname mydb --lim
 **Scenario:** You want a small sample of production data for local development.
 
 ```bash
-pg-sample \
+dbsample \
   --host production-db.example.com \
   --username readonly_user \
   --dbname production_db \
@@ -141,7 +141,7 @@ pg-sample \
 **Scenario:** You need more data from important tables, less from others.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -163,7 +163,7 @@ pg-sample \
 **Scenario:** You want 10% of data from large tables.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -177,7 +177,7 @@ pg-sample \
 **Scenario:** You only want active/current records.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -191,7 +191,7 @@ pg-sample \
 **Scenario:** You only want data from specific schemas.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -209,7 +209,7 @@ pg-sample \
 **Scenario:** You want to exclude specific tables or groups of tables using patterns.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -232,7 +232,7 @@ pg-sample \
 **Scenario:** You want the same sample every time (for testing).
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -253,7 +253,7 @@ pg-sample \
 **Scenario:** You want a random representative sample.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -268,7 +268,7 @@ pg-sample \
 **Scenario:** You already have the schema, just need data.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -283,7 +283,7 @@ pg-sample \
 **Scenario:** Connecting to a remote database requiring SSL.
 
 ```bash
-pg-sample \
+dbsample \
   --host secure-db.example.com \
   --username your_user \
   --dbname your_db \
@@ -296,7 +296,7 @@ pg-sample \
 
 Or with client certificates:
 ```bash
-pg-sample \
+dbsample \
   --host secure-db.example.com \
   --username your_user \
   --dbname your_db \
@@ -314,7 +314,7 @@ pg-sample \
 **Scenario:** You need to track what was sampled for compliance.
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -336,7 +336,7 @@ pg-sample \
 
 ```bash
 # Method 1: Use --compress flag (auto-appends .gz if not present)
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -346,7 +346,7 @@ pg-sample \
   --verbose
 
 # Method 2: Use .gz extension (auto-enables compression)
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -425,16 +425,16 @@ log_level: INFO
 **Run with config:**
 ```bash
 # Using JSON
-pg-sample --config config.json
+dbsample --config config.json
 
 # Using YAML
-pg-sample --config config.yaml
+dbsample --config config.yaml
 ```
 
 **Or override config values with CLI:**
 ```bash
-pg-sample --config config.json --limit "*=200" --file override.sql
-pg-sample --config config.yaml --limit "*=200" --file override.sql
+dbsample --config config.json --limit "*=200" --file override.sql
+dbsample --config config.yaml --limit "*=200" --file override.sql
 ```
 
 **What this does:**
@@ -450,7 +450,7 @@ pg-sample --config config.yaml --limit "*=200" --file override.sql
 
 ```bash
 # Step 1: Preview the sampling plan
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -459,7 +459,7 @@ pg-sample \
   --verbose
 
 # Step 2: Run actual sampling with verification
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -469,7 +469,7 @@ pg-sample \
   --verbose
 
 # Step 3: Run self-test to validate the output
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -521,7 +521,7 @@ Get-Content sample.sql.gz | ForEach-Object { [System.Text.Encoding]::UTF8.GetStr
 
 ```bash
 # Sample from production
-pg-sample \
+dbsample \
   --host prod-db.company.com \
   --username readonly_user \
   --dbname production \
@@ -540,7 +540,7 @@ psql -U postgres -h staging-db.company.com -d staging -f staging_sample.sql
 
 ```bash
 # Use percentage-based sampling for very large tables
-pg-sample \
+dbsample \
   --host large-db.company.com \
   --username analyst \
   --dbname analytics_db \
@@ -553,7 +553,7 @@ pg-sample \
 
 ```bash
 # Sample from multiple schemas, exclude others
-pg-sample \
+dbsample \
   --host db.company.com \
   --username dev_user \
   --dbname main_db \
@@ -628,10 +628,10 @@ Excludes entire database schemas and all tables within them.
 **Examples:**
 ```bash
 # Exclude entire schemas
-pg-sample --exclude-schema audit --exclude-schema logs --limit "*=100"
+dbsample --exclude-schema audit --exclude-schema logs --limit "*=100"
 
 # Exclude multiple schemas
-pg-sample --exclude-schema archive --exclude-schema temp --exclude-schema backup --limit "*=100"
+dbsample --exclude-schema archive --exclude-schema temp --exclude-schema backup --limit "*=100"
 ```
 
 **Use cases:**
@@ -654,13 +654,13 @@ Excludes specific tables. Supports wildcard patterns for flexible matching.
 **Examples:**
 ```bash
 # Exclude specific tables
-pg-sample --exclude-table "users" --exclude-table "orders" --limit "*=100"
+dbsample --exclude-table "users" --exclude-table "orders" --limit "*=100"
 
 # Exclude tables with patterns
-pg-sample --exclude-table "audit.*" --exclude-table "*_log" --limit "*=100"
+dbsample --exclude-table "audit.*" --exclude-table "*_log" --limit "*=100"
 
 # Mix qualified and unqualified names
-pg-sample --exclude-table "public.users" --exclude-table "temp_*" --limit "*=100"
+dbsample --exclude-table "public.users" --exclude-table "temp_*" --limit "*=100"
 ```
 
 **Use cases:**
@@ -682,13 +682,13 @@ Excludes specific columns from tables. Excluded columns are replaced with `NULL`
 **Examples:**
 ```bash
 # Exclude specific columns
-pg-sample --exclude-column "users.password" --exclude-column "users.email" --limit "*=100"
+dbsample --exclude-column "users.password" --exclude-column "users.email" --limit "*=100"
 
 # Exclude columns with patterns
-pg-sample --exclude-column "*.password" --exclude-column "*.ssn" --limit "*=100"
+dbsample --exclude-column "*.password" --exclude-column "*.ssn" --limit "*=100"
 
 # Exclude sensitive data patterns
-pg-sample --exclude-column "*.password" --exclude-column "*.secret_key" --exclude-column "users.*token*" --limit "*=100"
+dbsample --exclude-column "*.password" --exclude-column "*.secret_key" --exclude-column "users.*token*" --limit "*=100"
 ```
 
 **Use cases:**
@@ -701,7 +701,7 @@ pg-sample --exclude-column "*.password" --exclude-column "*.secret_key" --exclud
 You can combine all three exclusion types in a single command:
 
 ```bash
-pg-sample \
+dbsample \
   --host your-server.com \
   --username your_user \
   --dbname your_db \
@@ -786,16 +786,16 @@ pg-sample \
 
 View all options:
 ```bash
-pg-sample --help
+dbsample --help
 ```
 
 Check version:
 ```bash
-pg-sample --version
+dbsample --version
 ```
 
 Enable debug logging:
 ```bash
-pg-sample --log-level DEBUG --log-file debug.log ...
+dbsample --log-level DEBUG --log-file debug.log ...
 ```
 

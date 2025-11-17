@@ -1,4 +1,4 @@
-"""Configuration file parsing for pg-sample utility."""
+"""Configuration file parsing for dbsample utility."""
 
 import json
 import os

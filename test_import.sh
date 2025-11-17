@@ -3,7 +3,7 @@
 # Usage: ./test_import.sh [sample_file] [test_db_name]
 
 SAMPLE_FILE=${1:-test_basic.sql}
-TEST_DB=${2:-pg_sample_test_import}
+TEST_DB=${2:-dbsample_test_import}
 DB_USER=${3:-postgres}
 
 echo "========================================="

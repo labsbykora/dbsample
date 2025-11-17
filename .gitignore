@@ -47,6 +47,11 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# Build artifacts
+build/
+dist/
+*.spec
+
 # Project specific
 *.sql
 sample_*.sql

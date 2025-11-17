@@ -7,10 +7,10 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
 
 setup(
-    name="pg-sample",
-    version="1.2.0",
+    name="dbsample",
+    version="2.0.0",
     author="",
-    description="PostgreSQL Database Sampling Utility",
+    description="Database Sampling Utility",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
@@ -29,7 +29,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "pg-sample=pg_sample.cli:main",
+            "dbsample=dbsample.cli:main",
         ],
     },
 )

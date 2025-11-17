@@ -1,4 +1,4 @@
-"""Command-line interface for pg-sample utility."""
+"""Command-line interface for dbsample utility."""
 
 import sys
 import os
@@ -9,15 +9,15 @@ from typing import Optional, List
 from datetime import datetime
 import click
 import psycopg
-from pg_sample.connection import DatabaseConnection
-from pg_sample.logger import Logger, LogLevel
-from pg_sample.schema import SchemaDiscovery
-from pg_sample.dependencies import DependencyResolver
-from pg_sample.sampling import SamplingEngine, parse_limit_rules
-from pg_sample.output import SQLOutputGenerator
-from pg_sample.staging import StagingManager
-from pg_sample.self_test import SelfTestRunner
-from pg_sample.config import load_config_file, merge_config_with_cli, normalize_config_keys
+from dbsample.connection import DatabaseConnection
+from dbsample.logger import Logger, LogLevel
+from dbsample.schema import SchemaDiscovery
+from dbsample.dependencies import DependencyResolver
+from dbsample.sampling import SamplingEngine, parse_limit_rules
+from dbsample.output import SQLOutputGenerator
+from dbsample.staging import StagingManager
+from dbsample.self_test import SelfTestRunner
+from dbsample.config import load_config_file, merge_config_with_cli, normalize_config_keys
 
 
 # Exit codes
@@ -64,7 +64,7 @@ def parse_log_level(level_str: str) -> LogLevel:
 @click.option("--encoding", "-E", envvar="PGCLIENTENCODING", help="Character encoding")
 @click.option("--data-only", "-a", is_flag=True, help="Export data without schema")
 @click.option("--schema", multiple=True, help="Specific schema to export")
-@click.option("--sample-schema", default="_pg_sample", help="Temporary schema name for staging")
+@click.option("--sample-schema", default="_dbsample", help="Temporary schema name for staging")
 @click.option("--use-staging", is_flag=True, help="Explicitly enable staging mode (auto-enabled for large databases)")
 @click.option("--no-staging", is_flag=True, help="Explicitly disable staging mode")
 @click.option("--force", is_flag=True, help="Drop existing sample schema if it exists")
@@ -81,6 +81,7 @@ def parse_log_level(level_str: str) -> LogLevel:
 @click.option("--target-version", help="Target PostgreSQL version for generated SQL")
 @click.option("--verbose", "-v", is_flag=True, help="Output status messages to stderr")
 @click.option("--trace", is_flag=True, help="Enable database client tracing/debugging")
+@click.version_option(version=None, package_name="dbsample", help="Show version and exit")
 def main(
     config: Optional[str],
     host: Optional[str],
@@ -121,7 +122,7 @@ def main(
     verbose: bool,
     trace: bool,
 ):
-    """PostgreSQL Database Sampling Utility - Export representative sample datasets."""
+    """Database Sampling Utility - Export representative sample datasets."""
     
     # Load configuration file if specified (before setting up logger)
     config_values = {}
@@ -731,7 +732,7 @@ def main(
                 if self_test and not file:
                     # Create temporary file for self-test
                     import tempfile
-                    temp_fd, temp_sql_file = tempfile.mkstemp(suffix='.sql', prefix='pg_sample_test_')
+                    temp_fd, temp_sql_file = tempfile.mkstemp(suffix='.sql', prefix='dbsample_test_')
                     os.close(temp_fd)
                     file = temp_sql_file
                     logger.info(f"Created temporary SQL file for self-test: {temp_sql_file}")

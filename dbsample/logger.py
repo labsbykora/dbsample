@@ -15,7 +15,7 @@ class LogLevel(Enum):
 
 
 class Logger:
-    """Configured logger for pg-sample utility."""
+    """Configured logger for dbsample utility."""
     
     _instance: Optional['Logger'] = None
     _logger: Optional[logging.Logger] = None
@@ -27,7 +27,7 @@ class Logger:
     
     def __init__(self):
         if self._logger is None:
-            self._logger = logging.getLogger("pg_sample")
+            self._logger = logging.getLogger("dbsample")
             self._logger.setLevel(logging.INFO)
             self._handler: Optional[logging.StreamHandler] = None
             self._file_handler: Optional[logging.FileHandler] = None

@@ -2,7 +2,7 @@
 
 from typing import Optional, List, Dict
 import psycopg
-from pg_sample.logger import Logger
+from dbsample.logger import Logger
 
 
 class StagingManager:
@@ -11,7 +11,7 @@ class StagingManager:
     def __init__(
         self,
         conn: psycopg.Connection,
-        schema_name: str = "_pg_sample",
+        schema_name: str = "_dbsample",
         logger: Optional[Logger] = None,
     ):
         """Initialize staging manager.

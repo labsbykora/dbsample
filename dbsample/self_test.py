@@ -6,8 +6,8 @@ import tempfile
 import uuid
 from typing import Optional, Dict, List, Tuple, Any
 import psycopg
-from pg_sample.logger import Logger
-from pg_sample.connection import DatabaseConnection
+from dbsample.logger import Logger
+from dbsample.connection import DatabaseConnection
 
 
 class SelfTestRunner:
@@ -124,7 +124,7 @@ class SelfTestRunner:
         import time
         timestamp = int(time.time())
         random_suffix = str(uuid.uuid4())[:8]
-        return f"pg_sample_test_{timestamp}_{random_suffix}"
+        return f"dbsample_test_{timestamp}_{random_suffix}"
     
     def _create_test_database(self) -> bool:
         """Create temporary test database."""

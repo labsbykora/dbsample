@@ -2,7 +2,7 @@
 
 from typing import List, Dict, Set, Tuple
 from collections import defaultdict, deque
-from pg_sample.schema import Table, ForeignKey
+from dbsample.schema import Table, ForeignKey
 
 
 class DependencyResolver:
